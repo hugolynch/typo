@@ -43,8 +43,8 @@ async function pickWords(gameState) {
   startWord = wordList[Math.floor(Math.random() * wordList.length)].split("");
   endWord = wordList[Math.floor(Math.random() * wordList.length)].split("");
 
-  document.getElementById('startWord').textContent = startWord[0] + startWord[1] + startWord[2] + startWord[3];
-  document.getElementById('endWord').textContent = endWord[0] + endWord[1] + endWord[2] + endWord[3];
+  document.getElementById('startWord').innerHTML = '<span>' + startWord[0] + '</span>' + '<span>' + startWord[1] + '</span>' + '<span>' + startWord[2] + '</span>' + '<span>' + startWord[3] + '</span>'
+  document.getElementById('endWord').innerHTML = '<span>' + endWord[0] + '</span>' + '<span>' + endWord[1] + '</span>' + '<span>' + endWord[2] + '</span>' + '<span>' + endWord[3] + '</span>'
 
   // gameState.startWord = startWord;
   // gameState.endWord = endWord;
@@ -53,14 +53,20 @@ async function pickWords(gameState) {
   console.log('End:', endWord);
 }
 
-function countDiff(a, b) {
+function findSwap(a, b) {
 
-  diff = 0;
+  let diff = 0;
 
   for (let i = 0; i < a.length; i++) {
       if (a[i] != b[i]) {
         diff++;
+        diffPosition = i;
+        diffLetter = b[i];
       }
+  }
+
+  if (diff == 1) {
+    console.log(diffPosition, diffLetter);
   }
   
   console.log('diff checked', a, b, diff)
@@ -72,26 +78,28 @@ function submitWord() {
   input = input.toUpperCase()
   word = input.split("");
   console.log('Guess:', word);
-  let insert = '<div class="word chain">' + word[0] + word[1] + word[2] + word[3] + '</div>'
+  let insert = '<div class="word chain">' + '<span>' + word[0] + '</span>' + '<span>' + word[1] + '</span>' + '<span>' + word[2] + '</span>' + '<span>' + word[3] + '</span>'
   
   if (word.length != 4) {
     console.log('Your words should have 4 letters');
     return;
   }
 
-  if (countDiff(startWord, word) == 1) {
+  if (findSwap(startWord, word) == 1) {
     document.getElementById('guess').insertAdjacentHTML("beforebegin", insert);
     startWord = word;
     document.getElementById('guess').value = '';
 
-  } else if (countDiff(endWord, word) == 1) {
+  } else if (findSwap(endWord, word) == 1) {
     document.getElementById('guess').insertAdjacentHTML("afterend", insert);
     endWord = word;
     document.getElementById('guess').value = '';
   }
 
-  if (countDiff(startWord, endWord) == 1) {
+  if (findSwap(startWord, endWord) == 1) {
     document.getElementById('guess').style = "display: none";
+    document.getElementById('status').innerHTML = "Well done! Reload the page for a new puzzle.";
+    document.getElementById('status').style = "color: #ACD6A3;";
 
   }
 };

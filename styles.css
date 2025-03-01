@@ -5,51 +5,84 @@
     box-sizing: border-box;
 }
 
+@font-face {
+    font-family: "Open Runde";
+    src: url('fonts/OpenRunde-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Open Runde";
+    src: url('fonts/OpenRunde-Bold.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+}
+
 html {
     display: flex;
     min-height: 100vh;
+    font-size: 62.5%;
 }
 
 body {
-    margin: 24px;
     display: flex;
-    flex-grow: 1;
-    font-family: monospace;
-    text-align: center;
-    gap: 24px;
     flex-direction: column;
+    flex-grow: 1;
+    margin: 24px;
+    gap: 24px;
 }
 
 .word {
-    letter-spacing: .2rem;
-    width: 55px;
-    text-align: center;
-    color: white;
-    background-color: black;
-    text-align: center;
-}
+    display: flex;
+    border: 1px solid #C9CAD6;
+    border-radius: 8px;
+    gap: 3px;
+    padding: 3px;
 
-.chain {
-    background-color: grey;
+    &>span {
+        background-color: #F2F3FB;
+        border: 1px solid #C9CAD6;
+        width: 24px;
+        height: 24px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Open Runde', -apple-system, system-ui, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+        font-size: 1.1rem;
+        font-weight: bold;
+        
+    }
 }
 
 input {
-    font-family: monospace;
-    letter-spacing: .2rem;
-    border: 1px solid black;
-    width: 55px;
-    padding-left: .24rem;
+    border: 1px solid #C9CAD6;
     text-transform: uppercase;
-    
+    height: 32px;
+    padding: 0 8px;
+    border-radius: 8px;
+    font-family: monospace;
+    text-align: center;
+    letter-spacing: 1rem;
 }
 
 .section {
     display: flex;
     flex-direction: column;
-    gap: 2px;
     align-items: center;
+    gap: 4px;
+
 }
 
 img {
-    height: 32px;
+    height: 64px;
+}
+
+#status {
+    font-size: 1.6rem;
+    font-family: monospace;
+    margin-top: 24px;
+    text-align: center;
+    max-width: 300px;
 }

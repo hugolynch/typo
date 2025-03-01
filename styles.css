@@ -1,0 +1,55 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+html {
+    display: flex;
+    min-height: 100vh;
+}
+
+body {
+    margin: 24px;
+    display: flex;
+    flex-grow: 1;
+    font-family: monospace;
+    text-align: center;
+    gap: 24px;
+    flex-direction: column;
+}
+
+.word {
+    letter-spacing: .2rem;
+    width: 55px;
+    text-align: center;
+    color: white;
+    background-color: black;
+    text-align: center;
+}
+
+.chain {
+    background-color: grey;
+}
+
+input {
+    font-family: monospace;
+    letter-spacing: .2rem;
+    border: 1px solid black;
+    width: 55px;
+    padding-left: .24rem;
+    text-transform: uppercase;
+    
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    align-items: center;
+}
+
+img {
+    height: 32px;
+}

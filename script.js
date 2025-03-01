@@ -1,116 +1,119 @@
-// class GameState {
-//   constructor() {
-//       this.startWord = [];
-//       this.endWord = [];
-//       this.save = 'save';
-//   }
+class GameState {
+  constructor() {
+      this.startWord = [];
+      this.endWord = [];
+      this.wordList = [];
+  }
+}
 
-//   loadGame() {
-//     const saved = localStorage.getItem(this.save);
-//     if (saved) {
-//         const parsed = JSON.parse(saved);
-//         this.startWord = parsed.starWord;
-//         this.endWord = parsed.endWord;
-//     }
-//     return saved;
-// }
-
-// saveGame() {
-//     localStorage.setItem(this.save, JSON.stringify({
-//         starWord: this.startWord,
-//         endWord: this.endWord,
-//     }));
-// }
-
-// function init() {
-//   gameState = new GameState();
-
-//   if (!saved) {
-//       newPuzzle(gameState);
-//   } else {
-//       gameState.saveGame();
-//   }
-// }
-let startWord = [];
-let endWord = [];
+function init() {
+  gameState = new GameState();
+  pickWords(gameState);
+}
 
 async function pickWords(gameState) {
+
   const response = await fetch('words.txt');
   const text = await response.text();
 
-  const wordList = text.split('\n').map(word => word.trim());
+  gameState.wordList = text.split('\n').map(word => word.trim());
 
-  startWord = wordList[Math.floor(Math.random() * wordList.length)].split("");
-  endWord = wordList[Math.floor(Math.random() * wordList.length)].split("");
+  startWord = gameState.wordList[Math.floor(Math.random() * gameState.wordList.length)].split("");
+  endWord = gameState.wordList[Math.floor(Math.random() * gameState.wordList.length)].split("");
 
   document.getElementById('startWord').innerHTML = '<span>' + startWord[0] + '</span>' + '<span>' + startWord[1] + '</span>' + '<span>' + startWord[2] + '</span>' + '<span>' + startWord[3] + '</span>'
   document.getElementById('endWord').innerHTML = '<span>' + endWord[0] + '</span>' + '<span>' + endWord[1] + '</span>' + '<span>' + endWord[2] + '</span>' + '<span>' + endWord[3] + '</span>'
 
-  // gameState.startWord = startWord;
-  // gameState.endWord = endWord;
+  gameState.startWord = startWord;
+  gameState.endWord = endWord;
 
-  console.log('Start:', startWord);
-  console.log('End:', endWord);
+  console.log(startWord, endWord);
 }
 
 function findSwap(a, b) {
-
   let diff = 0;
+  let diffPosition = 0;
 
   for (let i = 0; i < a.length; i++) {
       if (a[i] != b[i]) {
         diff++;
         diffPosition = i;
-        diffLetter = b[i];
       }
   }
 
-  if (diff == 1) {
-    console.log(diffPosition, diffLetter);
+  if (diff === 1) {
+    return diffPosition;
   }
-  
-  console.log('diff checked', a, b, diff)
-  return diff;
 }
 
-function submitWord() {
-  let input = document.getElementById('guess').value;
-  input = input.toUpperCase()
-  word = input.split("");
-  console.log('Guess:', word);
-  let insert = '<div class="word chain">' + '<span>' + word[0] + '</span>' + '<span>' + word[1] + '</span>' + '<span>' + word[2] + '</span>' + '<span>' + word[3] + '</span>'
+function gameEnd(a, b) {
+  let diff = 0;
+
+  for (let i = 0; i < a.length; i++) {
+      if (a[i] != b[i]) {
+        diff++;
+      }
+  }
   
-  if (word.length != 4) {
+  return diff === 1
+}
+
+function submitWord(gameState) {
+  let input = document.getElementById('guess').value;
+  let word = input.toUpperCase();
+  let wordArray = word.split("");
+
+  let position = findSwap(gameState.startWord, wordArray);
+  if (position ===  undefined) {
+    position = findSwap(gameState.endWord, wordArray);
+  }
+  let insert = '<div class="word chain">';
+  for (let i = 0; i < wordArray.length; i++) {
+    let highlight = '<span>';
+    if (i === position) {
+      highlight = '<span class="highlight">';
+    }
+  insert += highlight + wordArray[i] + '</span>';
+  }
+  insert += '</div>';
+  
+  if (wordArray.length != 4) {
     console.log('Your words should have 4 letters');
     return;
   }
 
-  if (findSwap(startWord, word) == 1) {
+  if (!gameState.wordList.includes(word)) {
+    return;
+  }
+
+  if (findSwap(gameState.startWord, wordArray) != undefined) {
     document.getElementById('guess').insertAdjacentHTML("beforebegin", insert);
-    startWord = word;
+    gameState.startWord = wordArray;
     document.getElementById('guess').value = '';
 
-  } else if (findSwap(endWord, word) == 1) {
+  } else if (findSwap(gameState.endWord, wordArray) != undefined) {
     document.getElementById('guess').insertAdjacentHTML("afterend", insert);
-    endWord = word;
+    gameState.endWord = wordArray;
     document.getElementById('guess').value = '';
   }
 
-  if (findSwap(startWord, endWord) == 1) {
+
+  if (gameEnd(gameState.startWord, gameState.endWord)) {
     document.getElementById('guess').style = "display: none";
     document.getElementById('status').innerHTML = "Well done! Reload the page for a new puzzle.";
     document.getElementById('status').style = "color: #ACD6A3;";
-
   }
+
+  console.log(startWord, endWord);
 };
 
 document.addEventListener('keydown', (event) => {
   const input = document.getElementById('guess');
   if (event.key === 'Enter') {
-      submitWord();
+      submitWord(gameState);
   } else {
       input.focus();
   }
 });
 
-pickWords();
+init();

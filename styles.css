@@ -72,7 +72,6 @@ input {
     flex-direction: column;
     align-items: center;
     gap: 4px;
-
 }
 
 img {
@@ -85,4 +84,8 @@ img {
     margin-top: 24px;
     text-align: center;
     max-width: 300px;
+}
+
+.highlight {
+    background-color: red !important;
 }

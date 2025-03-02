@@ -65,6 +65,11 @@ input {
     font-family: monospace;
     text-align: center;
     letter-spacing: 1rem;
+
+    &:focus {
+        border: 1px solid #2E2F38;
+        outline: none;
+    }
 }
 
 .section {

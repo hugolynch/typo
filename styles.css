@@ -86,6 +86,7 @@ img {
     max-width: 300px;
 }
 
-.highlight {
-    background-color: red !important;
+.word>.highlight {
+    background-color: #F9F2E7;
+    border: 1px solid #E8C68E;
 }

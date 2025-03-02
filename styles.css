@@ -95,3 +95,18 @@ img {
     background-color: #F9F2E7;
     border: 1px solid #E8C68E;
 }
+
+.word.addition-word > span {
+    background-color: #E6F4EA;
+    border: 1px solid #66BB6A;
+}
+
+.word.subtraction-word > span {
+    background-color: #FBE9E7;
+    border: 1px solid #EF5350;
+}
+
+.word.shuffle-word > span {
+    background-color: #E3F2FD;
+    border: 1px solid #64B5F6;
+}

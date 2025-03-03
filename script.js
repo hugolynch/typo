@@ -162,9 +162,7 @@ function submitWord(gameState) {
     gameState.startWord = word;
     document.getElementById('guess').value = "";
     gameEnd(gameState.startWord, gameState.endWord);
-  }
-
-  if (
+  } else if (
     compareWords(gameState.endWord, word) === "swap" ||
     compareWords(gameState.endWord, word) === "shuffle" ||
     compareWords(gameState.endWord, word) === "addition" ||

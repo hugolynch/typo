@@ -29,6 +29,7 @@ async function pickWords(gameState) {
   gameState.startWord = seedWords[Math.floor(Math.random() * seedWords.length)].split("");
   gameState.endWord = seedWords[Math.floor(Math.random() * seedWords.length)].split("");
 
+  // For debugging:
   // gameState.startWord = ["P", "O", "T", "S"]
   // gameState.endWord = ["P", "E", "S", "T"]
 
@@ -296,7 +297,7 @@ function gameEnd(a, b, gameState) {
   ) {
     document.getElementById('guess').style = "display: none";
     document.getElementById('status').innerHTML = "Well done! Reload the page for a new puzzle.";
-    document.getElementById('status').style = "color: #ACD6A3;";
+    document.getElementById('status').style = "color: #579E47;";
     console.log("END")
   }
 }

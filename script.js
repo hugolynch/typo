@@ -179,20 +179,20 @@ function submitWord(gameState) {
 
   if (!gameState.wordList.includes(upper)) {
     document.getElementById('guess').value = "Invalid";
-    document.getElementById('guess').style = "border: 1px solid #DC6B6E; color: #DC6B6E;" ;
+    document.getElementById('guess').style = "color: #DC6B6E;" ;
     setTimeout(() => {
       document.getElementById('guess').value = "";
-      document.getElementById('guess').style = "border: 1px solid #2E2F38; color: #2E2F38;";
+      document.getElementById('guess').style = "color: #2E2F38;";
     }, 500);
     return;
   }
 
   if (compareWords(gameState.startWord, word) === "same" || compareWords(gameState.endWord, word) === "same") {
     document.getElementById('guess').value = "Same word";
-    document.getElementById('guess').style = "border: 1px solid #DC6B6E; color: #DC6B6E;" ;
+    document.getElementById('guess').style = "color: #DC6B6E;" ;
     setTimeout(() => {
       document.getElementById('guess').value = "";
-      document.getElementById('guess').style = "border: 1px solid #2E2F38; color: #2E2F38;";
+      document.getElementById('guess').style = "color: #2E2F38;";
     }, 500);
     return;
   }
@@ -267,6 +267,7 @@ function submitWord(gameState) {
   if (changeTypeStart === "N/A" && changeTypeEnd === "N/A") {
     document.getElementById('guess').style = "color:#DC6B6E;";
     setTimeout(() => {
+      document.getElementById('guess').value = "";
       document.getElementById('guess').style = "color: #2E2F38";
     }, 500);
   }

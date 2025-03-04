@@ -31,6 +31,7 @@ body {
     flex-grow: 1;
     margin: 24px;
     gap: 24px;
+    color: #2E2F38;
 }
 
 .word {
@@ -42,6 +43,8 @@ body {
 
     &>span {
         background-color: #F2F3FB;
+        color: #2E2F38;
+        /* background-color: #FFFFFF; */
         border: 1px solid #C9CAD6;
         width: 24px;
         height: 24px;
@@ -79,7 +82,12 @@ input {
     gap: 4px;
 }
 
-img {
+.direction {
+    font-family: 'Open Runde', -apple-system, system-ui, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-weight: bold;
+}
+
+.logo {
     height: 64px;
 }
 
@@ -88,9 +96,7 @@ img {
     font-family: monospace;
     margin-top: 24px;
     text-align: center;
-    max-width: 480px;
     text-wrap: pretty;
-
 }
 
 .word>.highlightYellow {
@@ -108,25 +114,52 @@ img {
     border: 1px solid #ACD6A3;
 }
 
-.word>.highlightRed {
-    background-color: #FFF0EF;
-    border: 1px solid #FFB9B8;
+.word>.highlightRedLeft {
+    border: double 1px transparent;
+    border-radius: 6px;
+    background-image: linear-gradient(270deg, #FFF0EF, #F2F3FB), linear-gradient(270deg, #FFB9B8, #C9CAD6);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
 }
 
-
-
-.yellow {
-    color: #BA8400;
+.word>.highlightRedRight {
+    border: double 1px transparent;
+    border-radius: 6px;
+    background-image: linear-gradient(90deg, #FFF0EF, #F2F3FB), linear-gradient(90deg, #FFB9B8, #C9CAD6);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
 }
 
-.blue {
-    color: #1596D9;
+#line {
+    width: 400px;
+    height: 1px;
+    /* background-color: #F2F3FA; */
+    background: linear-gradient(90deg, white 10%, #E3E5EF, white 90%);
+    margin: 1px 0;
 }
 
-.green {
-    color: #579E47;
-}
+#buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 24px;
+    gap: 8px;
 
-.red {
-    color: #DC6B6E;
+    &>button {
+        font-family: 'Inter', -apple-system, system-ui, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+        border-radius: 6px;
+        border: 1px solid #C9CAD6;
+        color: #2E2F38;
+        background: white;
+        padding: 8px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #F2F3FB;
+        }
+
+        &:active {
+            background-color: #E3E5EF;
+        }
+    }
 }

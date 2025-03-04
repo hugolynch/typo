@@ -7,6 +7,7 @@ class GameState {
 }
 
 function init() {
+  console.clear();
   gameState = new GameState();
   pickWords(gameState);
 }
@@ -30,8 +31,8 @@ async function pickWords(gameState) {
   gameState.endWord = seedWords[Math.floor(Math.random() * seedWords.length)].split("");
 
   // For debugging:
-  // gameState.startWord = ["P", "O", "T", "S"]
-  // gameState.endWord = ["P", "E", "S", "T"]
+  // gameState.startWord = ["P", "E", "T"]
+  // gameState.endWord = ["S", "N", "A", "P", "S"]
 
   let startWordHTML = '';
   for (let i = 0; i < gameState.startWord.length; i++) {
@@ -168,7 +169,7 @@ function getSubtractionPosition(a, b) {
 
 function submitWord(gameState) {
 
-  let input = document.getElementById('guess').value;
+  let input = document.getElementById('guess').value.trim();
   let upper = input.toUpperCase();
   let word = upper.split("");
 
@@ -178,20 +179,20 @@ function submitWord(gameState) {
 
   if (!gameState.wordList.includes(upper)) {
     document.getElementById('guess').value = "Invalid";
-    document.getElementById('guess').style = "border: 1px solid red; color: red;" ;
+    document.getElementById('guess').style = "border: 1px solid #DC6B6E; color: #DC6B6E;" ;
     setTimeout(() => {
       document.getElementById('guess').value = "";
-      document.getElementById('guess').style = "border: 1px solid black; color: black;";
+      document.getElementById('guess').style = "border: 1px solid #2E2F38; color: #2E2F38;";
     }, 500);
     return;
   }
 
   if (compareWords(gameState.startWord, word) === "same" || compareWords(gameState.endWord, word) === "same") {
     document.getElementById('guess').value = "Same word";
-    document.getElementById('guess').style = "border: 1px solid red; color: red;" ;
+    document.getElementById('guess').style = "border: 1px solid #DC6B6E; color: #DC6B6E;" ;
     setTimeout(() => {
       document.getElementById('guess').value = "";
-      document.getElementById('guess').style = "border: 1px solid black; color: black;";
+      document.getElementById('guess').style = "border: 1px solid #2E2F38; color: #2E2F38;";
     }, 500);
     return;
   }
@@ -262,6 +263,13 @@ function submitWord(gameState) {
     document.getElementById('guess').value = "";
     gameEnd(gameState.startWord, gameState.endWord);
   }
+
+  if (changeTypeStart === "N/A" && changeTypeEnd === "N/A") {
+    document.getElementById('guess').style = "color:#DC6B6E;";
+    setTimeout(() => {
+      document.getElementById('guess').style = "color: #2E2F38";
+    }, 500);
+  }
 }
 
 function writeHTML(word, positions, changeType) {
@@ -278,7 +286,15 @@ function writeHTML(word, positions, changeType) {
         highlight = '<span class="highlightGreen">';
       }
       if (changeType === "subtraction") {
-        highlight = '<span class="highlightRed">';
+        if (positions.length === 1) {
+          highlight = '<span class="highlightRedLeft">';
+        }
+        if (positions.length === 2 && i === positions[0]) {
+          highlight = '<span class="highlightRedLeft">';
+        }
+        if (positions.length === 2 && i === positions[1]) {
+          highlight = '<span class="highlightRedRight">';
+        }
       }
     }
     insert += highlight + word[i] + '</span>';
@@ -295,10 +311,13 @@ function gameEnd(a, b, gameState) {
     compareWords(a, b) === "subtraction" ||
     compareWords(a, b) === "same"
   ) {
+    document.getElementById('guess').insertAdjacentHTML('afterend', '<div id="line"></div>');
+
     document.getElementById('guess').style = "display: none";
     document.getElementById('status').innerHTML = "Well done! Reload the page for a new puzzle.";
     document.getElementById('status').style = "color: #579E47;";
-    console.log("END")
+    document.getElementById('buttons').style = "display: flex";
+
   }
 }
 

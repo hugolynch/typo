@@ -11,19 +11,19 @@
     <img class="logo" src="img/logo-typo.svg">
     <div class="section">
         <div class="word" id="startWord"></div>
-        <div>↓</div>
-        <input id="guess">
-        <div>↑</div>
+        <div class="direction">↓</div>
+        <input type="text" autocorrect="off" id="guess">
+        <!-- <div id="line"></div> -->
+        <div class="direction">↑</div>
         <div class="word" id="endWord"></div>
-        <div id="status">Try going from the top word to the bottom word, using one change at a time.<br><br>
-            <b>Changes allowed:</b><br><br>
-            - <b class="yellow">Swap</b>: Change one letter for another.<br>
-            - <b class="blue">Shuffle</b>: Rearrange all the letters.<br>
-            - <b class="green">Addition</b>: Add one letter.<br>
-            - <b class="red">Subtraction</b>: Remove one letter.
-        </div>
     </div>
-    
+    <div id="status">
+        <img src="img/rules.svg">
+    </div>
+    <div id="buttons">
+        <button onclick="init()">New Puzzle</button>
+        <button onclick="customPuzzle()">Custom Puzzle</button>
+    </div>
 
     <script src="script.js"></script>
 </body>

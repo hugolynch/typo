@@ -30,6 +30,8 @@ async function pickWords(gameState) {
   gameState.startWord = seedWords[Math.floor(Math.random() * seedWords.length)].split("");
   gameState.endWord = seedWords[Math.floor(Math.random() * seedWords.length)].split("");
 
+
+  gameState.startWord = ["P", "O", "T", "S"]
   gameState.wordChain.push(gameState.startWord, gameState.endWord);
 
   let startWordHTML = '';
@@ -77,6 +79,7 @@ function compareWords(a, b) {
     if (a.toString() !== b.toString() && a.slice().sort().toString() === b.slice().sort().toString()) {
       return "shuffle";
     }
+
   } else if (a.length === b.length - 1) {
 
       let i = 0, j = 0;
@@ -116,18 +119,37 @@ function compareWords(a, b) {
   return "N/A";
 }
 
+function getSwapPosition(a, b) {
+  let swapPosition = [];
+  let diff = 0;
+
+  for (let i = 0; i < a.length; i++) {
+    if (a[i] != b[i]) {
+      diff++;
+      swapPosition = i;
+    }
+  }
+
+  if (diff === 1) {
+    return [swapPosition];
+  }
+}
+
+function getShufflePosition(a, b) {
+  let swapPosition = [];
+  for (let i = 0; i < a.length; i++) {
+      swapPosition.push(i);
+    }
+
+  return swapPosition;
+}
+
 function submitWord(gameState) {
 
   let input = document.getElementById('guess').value;
   let upper = input.toUpperCase();
   let word = upper.split("");
 
-  let insert = '<div class="word chain">';
-  for (let i = 0; i < word.length; i++) {
-    let highlight = '<span>';
-    insert += highlight + word[i] + '</span>';
-  }
-  insert += '</div>';
 
   console.log(gameState.startWord, word, compareWords(gameState.startWord, word));
   console.log(gameState.endWord, word, compareWords(gameState.endWord, word));
@@ -152,31 +174,67 @@ function submitWord(gameState) {
     return;
   }
 
+  let changeTypeStart = compareWords(gameState.startWord, word);
+  let changeTypeEnd = compareWords(gameState.endWord, word);
+
+  console.log(changeTypeStart);
+  console.log(changeTypeEnd);
+
+  let insert = "";
   if (
-    compareWords(gameState.startWord, word) === "swap" ||
-    compareWords(gameState.startWord, word) === "shuffle" ||
-    compareWords(gameState.startWord, word) === "addition" ||
-    compareWords(gameState.startWord, word) === "subtraction"
+    changeTypeStart === "swap" ||
+    changeTypeStart === "shuffle" ||
+    changeTypeStart === "addition" ||
+    changeTypeStart === "subtraction"
   ) {
+    if (changeTypeStart === "swap") {
+      let positions = getSwapPosition(gameState.startWord, word);
+      insert = writeHTML(word, positions);
+    }
+
+    if (changeTypeStart === "shuffle") {
+      let positions = getShufflePosition(gameState.startWord, word);
+      insert = writeHTML(word, positions);
+      // console.log(insert, word, positions)
+    }
+
     document.getElementById('guess').insertAdjacentHTML("beforebegin", insert);
     gameState.startWord = word;
     document.getElementById('guess').value = "";
     gameEnd(gameState.startWord, gameState.endWord);
   } else if (
-    compareWords(gameState.endWord, word) === "swap" ||
-    compareWords(gameState.endWord, word) === "shuffle" ||
-    compareWords(gameState.endWord, word) === "addition" ||
-    compareWords(gameState.endWord, word) === "subtraction"
+    changeTypeEnd === "swap" ||
+    changeTypeEnd === "shuffle" ||
+    changeTypeEnd === "addition" ||
+    changeTypeEnd === "subtraction"
   ) {
+    if (changeTypeEnd === "swap") {
+      let positions = getSwapPosition(gameState.endWord, word);
+      insert = writeHTML(word, positions);
+    }
+
     document.getElementById('guess').insertAdjacentHTML("afterend", insert);
     gameState.endWord = word;
     document.getElementById('guess').value = "";
     gameEnd(gameState.startWord, gameState.endWord);
-
   }
-
-
+  
   console.log(compareWords(gameState.startWord, gameState.endWord));
+}
+
+function writeHTML(word, positions) {
+  let insert = '<div class="word chain">';
+  for (let i = 0; i < word.length; i++) {
+    let highlight = '<span>';
+
+    console.log(positions, i, positions.includes(i))
+    if (positions.includes(i)) {
+      highlight = '<span class="highlight">';
+    }
+    insert += highlight + word[i] + '</span>';
+    }
+    insert += '</div>';
+    return insert;
 }
 
 function gameEnd(a, b) {

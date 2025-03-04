@@ -89,24 +89,25 @@ img {
     margin-top: 24px;
     text-align: center;
     max-width: 300px;
+
 }
 
-.word>.highlight {
+.word>.highlightYellow {
     background-color: #F9F2E7;
     border: 1px solid #E8C68E;
 }
 
-.word.addition-word > span {
-    background-color: #E6F4EA;
-    border: 1px solid #66BB6A;
+.word>.highlightGreen {
+    background-color: #EDF5EB;
+    border: 1px solid #ACD6A3;
 }
 
-.word.subtraction-word > span {
-    background-color: #FBE9E7;
-    border: 1px solid #EF5350;
+.word>.highlightRed {
+    background-color: #FFF0EF;
+    border: 1px solid #FFB9B8;
 }
 
-.word.shuffle-word > span {
-    background-color: #E3F2FD;
-    border: 1px solid #64B5F6;
+.word>.highlightBlue {
+    background-color: #E9F5FE;
+    border: 1px solid #98D1FA;
 }

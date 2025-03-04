@@ -3,7 +3,6 @@ class GameState {
       this.startWord = [];
       this.endWord = [];
       this.wordList = [];
-      this.wordChain = [];
   }
 }
 
@@ -30,9 +29,8 @@ async function pickWords(gameState) {
   gameState.startWord = seedWords[Math.floor(Math.random() * seedWords.length)].split("");
   gameState.endWord = seedWords[Math.floor(Math.random() * seedWords.length)].split("");
 
-
-  gameState.startWord = ["P", "O", "T", "S"]
-  gameState.wordChain.push(gameState.startWord, gameState.endWord);
+  // gameState.startWord = ["P", "O", "T", "S"]
+  // gameState.endWord = ["P", "E", "S", "T"]
 
   let startWordHTML = '';
   for (let i = 0; i < gameState.startWord.length; i++) {
@@ -136,12 +134,35 @@ function getSwapPosition(a, b) {
 }
 
 function getShufflePosition(a, b) {
-  let swapPosition = [];
+  let shufflePosition = [];
   for (let i = 0; i < a.length; i++) {
-      swapPosition.push(i);
+    shufflePosition.push(i);
     }
 
-  return swapPosition;
+  return shufflePosition;
+}
+
+function getAdditionPosition(a, b) {
+  let additionPosition = 0;
+  for (let i = 0; i < a.length; i++) {
+    if (a[i] !== b[i]) {
+      additionPosition = i;
+      return [additionPosition];
+    }
+  }
+  additionPosition = a.length;
+  return [additionPosition];
+}
+
+function getSubtractionPosition(a, b) {
+  let subtractionPosition = 0;
+  for (let i = 0; i < b.length; i++) {
+    if (a[i] !== b[i]) {
+      return [i - 1, i];
+    }
+  }
+  subtractionPosition = [b.length - 1];
+  return subtractionPosition;
 }
 
 function submitWord(gameState) {
@@ -177,9 +198,6 @@ function submitWord(gameState) {
   let changeTypeStart = compareWords(gameState.startWord, word);
   let changeTypeEnd = compareWords(gameState.endWord, word);
 
-  console.log(changeTypeStart);
-  console.log(changeTypeEnd);
-
   let insert = "";
   if (
     changeTypeStart === "swap" ||
@@ -194,8 +212,17 @@ function submitWord(gameState) {
 
     if (changeTypeStart === "shuffle") {
       let positions = getShufflePosition(gameState.startWord, word);
-      insert = writeHTML(word, positions);
-      // console.log(insert, word, positions)
+      insert = writeHTML(word, positions, changeTypeStart);
+    }
+
+    if (changeTypeStart === "addition") {
+      let positions = getAdditionPosition(gameState.startWord, word);
+      insert = writeHTML(word, positions, changeTypeStart);
+    }
+
+    if (changeTypeStart === "subtraction") {
+      let positions = getSubtractionPosition(gameState.startWord, word);
+      insert = writeHTML(word, positions, changeTypeStart);
     }
 
     document.getElementById('guess').insertAdjacentHTML("beforebegin", insert);
@@ -211,6 +238,22 @@ function submitWord(gameState) {
     if (changeTypeEnd === "swap") {
       let positions = getSwapPosition(gameState.endWord, word);
       insert = writeHTML(word, positions);
+
+    }
+
+    if (changeTypeEnd === "shuffle") {
+      let positions = getShufflePosition(gameState.endWord, word);
+      insert = writeHTML(word, positions, changeTypeEnd);
+    }
+
+    if (changeTypeEnd === "addition") {
+      let positions = getAdditionPosition(gameState.endWord, word);
+      insert = writeHTML(word, positions, changeTypeEnd);
+    }
+
+    if (changeTypeEnd === "subtraction") {
+      let positions = getSubtractionPosition(gameState.endWord, word);
+      insert = writeHTML(word, positions, changeTypeEnd);
     }
 
     document.getElementById('guess').insertAdjacentHTML("afterend", insert);
@@ -218,18 +261,24 @@ function submitWord(gameState) {
     document.getElementById('guess').value = "";
     gameEnd(gameState.startWord, gameState.endWord);
   }
-  
-  console.log(compareWords(gameState.startWord, gameState.endWord));
 }
 
-function writeHTML(word, positions) {
+function writeHTML(word, positions, changeType) {
   let insert = '<div class="word chain">';
   for (let i = 0; i < word.length; i++) {
     let highlight = '<span>';
 
-    console.log(positions, i, positions.includes(i))
     if (positions.includes(i)) {
-      highlight = '<span class="highlight">';
+      highlight = '<span class="highlightYellow">';
+      if (changeType === "shuffle") {
+        highlight = '<span class="highlightBlue">';
+      }
+      if (changeType === "addition") {
+        highlight = '<span class="highlightGreen">';
+      }
+      if (changeType === "subtraction") {
+        highlight = '<span class="highlightRed">';
+      }
     }
     insert += highlight + word[i] + '</span>';
     }
@@ -237,7 +286,7 @@ function writeHTML(word, positions) {
     return insert;
 }
 
-function gameEnd(a, b) {
+function gameEnd(a, b, gameState) {
   if (
     compareWords(a, b) === "swap" ||
     compareWords(a, b) === "shuffle" ||
@@ -248,7 +297,7 @@ function gameEnd(a, b) {
     document.getElementById('guess').style = "display: none";
     document.getElementById('status').innerHTML = "Well done! Reload the page for a new puzzle.";
     document.getElementById('status').style = "color: #ACD6A3;";
-    console.log("done")
+    console.log("END")
   }
 }
 

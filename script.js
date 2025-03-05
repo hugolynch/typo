@@ -382,4 +382,95 @@ function getDefinitionEnd(gameState) {
   .then(data => console.log(word + ":", data[0].meanings[0].definitions[0].definition))
 }
 
+function findCountsStart(gameState) {
+
+  arrayList = [];
+
+  for (let i = 0; i < gameState.wordList.length; i++) {
+    arrayList.push(gameState.wordList[i].split(''))
+  }
+  
+  let swapCount = 0;
+  let swaps = [];
+  let shuffleCount = 0;
+  let shuffles = [];
+  let addCount = 0;
+  let adds = [];
+  let subCount = 0;
+  let subs = [];
+
+  for (let i = 0; i < arrayList.length; i++) {
+    
+    if (compareWords(gameState.startWord, arrayList[i]) === "swap") {
+      swapCount++;
+      swaps.push(arrayList[i]);
+    }
+
+    if (compareWords(gameState.startWord, arrayList[i]) === "shuffle") {
+      shuffleCount++;
+      shuffles.push(arrayList[i]);
+    }
+
+    if (compareWords(gameState.startWord, arrayList[i]) === "addition") {
+      addCount++;
+      adds.push(arrayList[i]);
+    }
+    
+    if (compareWords(gameState.startWord, arrayList[i]) === "subtraction") {
+      subCount++;
+      subs.push(arrayList[i]);
+    }
+  }
+  console.log("START Swaps:", swapCount, swaps);
+  console.log("START Shuffles:", shuffleCount, shuffles);
+  console.log("START Additions:", addCount, adds);
+  console.log("START Substractions:", subCount, subs);
+}
+
+function findCountsEnd(gameState) {
+
+  arrayList = [];
+
+  for (let i = 0; i < gameState.wordList.length; i++) {
+    arrayList.push(gameState.wordList[i].split(''))
+  }
+  
+  let swapCount = 0;
+  let swaps = [];
+  let shuffleCount = 0;
+  let shuffles = [];
+  let addCount = 0;
+  let adds = [];
+  let subCount = 0;
+  let subs = [];
+
+  for (let i = 0; i < arrayList.length; i++) {
+    
+    if (compareWords(gameState.endWord, arrayList[i]) === "swap") {
+      swapCount++;
+      swaps.push(arrayList[i]);
+    }
+
+    if (compareWords(gameState.endWord, arrayList[i]) === "shuffle") {
+      shuffleCount++;
+      shuffles.push(arrayList[i]);
+    }
+
+    if (compareWords(gameState.endWord, arrayList[i]) === "addition") {
+      addCount++;
+      adds.push(arrayList[i]);
+    }
+    
+    if (compareWords(gameState.endWord, arrayList[i]) === "subtraction") {
+      subCount++;
+      subs.push(arrayList[i]);
+    }
+  }
+  console.log("END Swaps:", swapCount, swaps);
+  console.log("END Shuffles:", shuffleCount, shuffles);
+  console.log("END Additions:", addCount, adds);
+  console.log("END Substractions:", subCount, subs);
+}
+
+
 init();

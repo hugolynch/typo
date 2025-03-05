@@ -161,7 +161,7 @@ input {
     }
 }
 
-#buzz>button, #def {
+#buzz>button, #def, #transformation {
     font-family: 'Inter', -apple-system, system-ui, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
     border-radius: 6px;
     border: 1px solid #C9CAD6;

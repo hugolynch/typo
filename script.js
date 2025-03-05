@@ -2,14 +2,25 @@ class GameState {
   constructor() {
       this.startWord = [];
       this.endWord = [];
+      this.startChain = [];
+      this.endChain = [];
       this.wordList = [];
+  }
+
+  calcScore() {
+    return (this.startChain.length + this.endChain.length) - 2;
   }
 }
 
 function init() {
   console.clear();
+  resetPuzzle();
   gameState = new GameState();
-  pickWords(gameState);
+  pickWords(gameState).then(displayWords);
+}
+
+function resetPuzzle() {
+  document.getElementById('game').innerHTML = '<div class="word" id="startWord"></div><div class="direction">↓</div><input type="text" autocorrect="off" autocomplete="off" id="guess"><div class="direction">↑</div><div class="word" id="endWord"></div>'
 }
 
 async function pickWords(gameState) {
@@ -34,6 +45,13 @@ async function pickWords(gameState) {
   // gameState.startWord = ["P", "E", "T"]
   // gameState.endWord = ["S", "N", "A", "P", "S"]
 
+  return gameState;
+}
+
+function displayWords(gameState) {
+  gameState.startChain.push(gameState.startWord);
+  gameState.endChain.push(gameState.endWord);
+
   let startWordHTML = '';
   for (let i = 0; i < gameState.startWord.length; i++) {
     startWordHTML += '<span>' + gameState.startWord[i] + '</span>';
@@ -47,6 +65,19 @@ async function pickWords(gameState) {
   document.getElementById('endWord').innerHTML = endWordHTML;
 
   console.log("START:", gameState.startWord, gameState.endWord);
+}
+
+function customPuzzle() {
+  console.clear();
+  resetPuzzle();
+  gameState = new GameState();
+  pickWords(gameState).then((gameState) => {
+    let customStart = prompt("Enter start word.");
+    let customEnd = prompt("Enter end word.");
+    gameState.startWord = customStart.toUpperCase().split('');
+    gameState.endWord = customEnd.toUpperCase().split('');
+    displayWords(gameState);
+  });
 }
 
 document.addEventListener('keydown', (event) => {
@@ -229,8 +260,9 @@ function submitWord(gameState) {
 
     document.getElementById('guess').insertAdjacentHTML("beforebegin", insert);
     gameState.startWord = word;
+    gameState.startChain.push(word);
     document.getElementById('guess').value = "";
-    gameEnd(gameState.startWord, gameState.endWord);
+    gameEnd(gameState.startWord, gameState.endWord, gameState);
   } else if (
     changeTypeEnd === "swap" ||
     changeTypeEnd === "shuffle" ||
@@ -260,8 +292,9 @@ function submitWord(gameState) {
 
     document.getElementById('guess').insertAdjacentHTML("afterend", insert);
     gameState.endWord = word;
+    gameState.endChain.push(word);
     document.getElementById('guess').value = "";
-    gameEnd(gameState.startWord, gameState.endWord);
+    gameEnd(gameState.startWord, gameState.endWord, gameState);
   }
 
   if (changeTypeStart === "N/A" && changeTypeEnd === "N/A") {
@@ -315,7 +348,8 @@ function gameEnd(a, b, gameState) {
     document.getElementById('guess').insertAdjacentHTML('afterend', '<div id="line"></div>');
 
     document.getElementById('guess').style = "display: none";
-    document.getElementById('status').innerHTML = "Well done! Reload the page for a new puzzle.";
+    document.getElementById('status').innerHTML = "Well done! Your score is " + gameState.calcScore() + ".";
+
     document.getElementById('status').style = "color: #579E47;";
     document.getElementById('buttons').style = "display: flex";
 

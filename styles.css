@@ -30,7 +30,7 @@ body {
     flex-direction: column;
     flex-grow: 1;
     margin: 24px;
-    gap: 24px;
+    gap: 32px;
     color: #2E2F38;
 }
 
@@ -94,7 +94,6 @@ input {
 #status {
     font-size: 1.6rem;
     font-family: monospace;
-    margin-top: 24px;
     text-align: center;
     text-wrap: pretty;
 }
@@ -133,7 +132,6 @@ input {
 #line {
     width: 400px;
     height: 1px;
-    /* background-color: #F2F3FA; */
     background: linear-gradient(90deg, white 10%, #E3E5EF, white 90%);
     margin: 1px 0;
 }
@@ -142,7 +140,6 @@ input {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin-top: 24px;
     gap: 8px;
 
     &>button {

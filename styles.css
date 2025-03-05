@@ -160,3 +160,22 @@ input {
         }
     }
 }
+
+#buzz>button {
+    font-family: 'Inter', -apple-system, system-ui, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    border-radius: 6px;
+    border: 1px solid #C9CAD6;
+    color: #2E2F38;
+    background: white;
+    padding: 8px;
+    width: 36px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #F2F3FB;
+    }
+
+    &:active {
+        background-color: #E3E5EF;
+    }
+}

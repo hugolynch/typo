@@ -260,6 +260,7 @@ function submitWord(gameState) {
 
     document.getElementById('guess').insertAdjacentHTML("beforebegin", insert);
     gameState.startWord = word;
+    getDefinitionStart(gameState);
     gameState.startChain.push(word);
     document.getElementById('guess').value = "";
     gameEnd(gameState.startWord, gameState.endWord, gameState);
@@ -292,6 +293,7 @@ function submitWord(gameState) {
 
     document.getElementById('guess').insertAdjacentHTML("afterend", insert);
     gameState.endWord = word;
+    getDefinitionEnd(gameState);
     gameState.endChain.push(word);
     document.getElementById('guess').value = "";
     gameEnd(gameState.startWord, gameState.endWord, gameState);
@@ -354,6 +356,30 @@ function gameEnd(a, b, gameState) {
     document.getElementById('buttons').style = "display: flex";
 
   }
+}
+
+function getDefinitionStart(gameState) {
+
+  let word = '';
+  for (let i = 0; i < gameState.startWord.length; i++) {
+    word += gameState.startWord[i];
+  }
+  
+  fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
+  .then(response => response.json())
+  .then(data => console.log(word + ":", data[0].meanings[0].definitions[0].definition))
+}
+
+function getDefinitionEnd(gameState) {
+
+  let word = '';
+  for (let i = 0; i < gameState.endWord.length; i++) {
+    word += gameState.endWord[i];
+  }
+  
+  fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
+  .then(response => response.json())
+  .then(data => console.log(word + ":", data[0].meanings[0].definitions[0].definition))
 }
 
 init();

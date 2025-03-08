@@ -4,21 +4,32 @@
   let endChain: string[] = $state([]);
   let newWord = $state("");
 
-  startChain.push("START");
-  endChain.push("PANS");
+  startChain.push("STARE");
+  endChain.push("RUTS");
+
+  console.log($state.snapshot(startChain[0]) + " / "  + $state.snapshot(endChain[0]));
 
   function submit(event: KeyboardEvent) {
     if (event.key === "Enter") {
       newWord = newWord.toUpperCase().trim();
-      
       let startCompare = compareWords(startChain[startChain.length - 1], newWord)
-      if (startCompare.type !== "same" && startCompare.type !== "invalid") {
-        startChain.push(newWord);
-        newWord = "";
+      let endCompare = compareWords(endChain[endChain.length - 1], newWord)
+
+      if ((startCompare.type === "same" || startCompare.type === "invalid") && (endCompare.type === "same" || endCompare.type === "invalid")) {
+        console.log(`%c${startChain[startChain.length - 1]}` + " → " + newWord + " : " + startCompare.type, 'color: #DC6B6E; background: #FFF0EF');
+        console.log(`%c${endChain[endChain.length - 1]}` + " → " + newWord + " : " + endCompare.type, 'color: #DC6B6E; background: #FFF0EF');
       }
 
-      let endCompare = compareWords(endChain[endChain.length - 1], newWord)
-      if (endCompare.type !== "same" && endCompare.type !== "invalid") {
+      if (startCompare.type !== "same" && startCompare.type !== "invalid" && endCompare.type !== "same" && endCompare.type !== "invalid") {
+        console.log(`%c${startChain[startChain.length - 1]}` + " → " + newWord + " ← " + startChain[startChain.length - 1], 'color: #579E47; background: #EDF5EB')
+      } else if (startCompare.type !== "same" && startCompare.type !== "invalid") {
+        console.log(`%c${startChain[startChain.length - 1]}` + " → " + newWord + " : " + startCompare.type, 'color: #579E47; background: #EDF5EB')
+        console.log(`%c${endChain[endChain.length - 1]}` + " → " + newWord + " : " + endCompare.type, 'color: #DC6B6E; background: #FFF0EF')
+        startChain.push(newWord);
+        newWord = "";
+      } else if (endCompare.type !== "same" && endCompare.type !== "invalid") {
+        console.log(`%c${startChain[startChain.length - 1]}` + " → " + newWord + " : " + startCompare.type, 'color: #DC6B6E; background: #FFF0EF')
+        console.log(`%c${endChain[endChain.length - 1]}` + " → " + newWord + " : " + endCompare.type, 'color: #579E47; background: #EDF5EB')
         endChain.push(newWord);
         newWord = "";
       }
@@ -139,5 +150,4 @@
   .direction {
       font-weight: bold;
   }
-
 </style>

@@ -1,6 +1,5 @@
 <script lang="ts">
   let { letters, edit } = $props();
-  console.log(edit);
 </script>
 
 <div class="word">
@@ -66,7 +65,7 @@
     border: solid 1px transparent;
     border-radius: var(--border-radius-small);;
     background-image: linear-gradient(var(--degs), #FFF0EF, var(--background-color-light)),
-      linear-gradient(var(--degs), #ffb9b8, var(--border-color-light));
+      linear-gradient(var(--degs), #FFB9B8, var(--border-color-light));
     background-origin: border-box;
     background-clip: padding-box, border-box;
   }

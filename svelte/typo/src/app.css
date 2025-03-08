@@ -45,14 +45,13 @@
 }
 
 body {
-  margin: 0;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-}
-
-#app {
+  align-items: center;
+  gap: 32px;
   width: 100%;
-  text-align: center;
+  height: 100vh;
 }
 
 @media (prefers-color-scheme: light) {

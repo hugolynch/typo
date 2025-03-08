@@ -9,8 +9,10 @@
   let gameOver = $derived(startChain.at(-1) === endChain.at(-1));
 
   onMount(async () => {
-    wordList = await fetch('public/words.json').then(x => x.json());
+    wordList = await fetch('/words.json').then(x => x.json());
     let seedWords = wordList.filter(word => word.seed)
+
+
     startChain.push(seedWords[Math.floor(Math.random() * seedWords.length)].word);
     endChain.push(seedWords[Math.floor(Math.random() * seedWords.length)].word);
     console.log($state.snapshot(startChain[0]) + " / "  + $state.snapshot(endChain[0]));
@@ -101,12 +103,16 @@
 
     return { index: null, type: "invalid" }
   }
+
+  function showDef(word: string) {
+
+  }
 </script>
 
 <div class="chain">
   {#each startChain as word, index}
     {#if index === 0}
-      <Word letters={word} edit={{ index: null, type: "start"}} />
+      <Word letters={word} edit={{ index: null, type: "start"}} onclick="{showDef(word)}"/>
       <div class="direction">↓</div>
     {:else}
       <div class="row"><Word letters={word} edit={compareWords(startChain[index - 1], word)} />

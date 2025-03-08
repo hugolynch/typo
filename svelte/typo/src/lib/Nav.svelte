@@ -28,10 +28,10 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-    margin-bottom: 32px;
-    border-bottom: 1px solid var(--border-color-light);
     padding: 16px;
+    border-bottom: 1px solid var(--border-color-light);
     background-color: var(--background-color-light);
+    width: 100%;
   }
 
  .row {

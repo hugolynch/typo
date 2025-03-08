@@ -27,14 +27,24 @@
   .word {
     display: flex;
     margin: 0 auto;
-    gap: 4px;
-    border: 1px solid grey;
-    padding: 4px;
+    gap: 3px;
+    border-radius: var(--border-radius-medium);
+    padding: 3px;
+    border: 1px solid  var(--border-color-light);
   }
 
   .letter {
-    border: 1px solid grey;
-    padding: 12px;
+    height: 24px;
+    width: 24px;
+    border-radius: var(--border-radius-small);
+    border: 1px solid var(--border-color-light);
+    background-color: var(--background-color-light);
+    color: var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.1rem;
   }
 
   .substitution {
@@ -53,10 +63,10 @@
   }
 
   .deletion {
-    border: double 1px transparent;
-    border-radius: 6px;
-    background-image: linear-gradient(var(--degs), #fff0ef, #f2f3fb),
-      linear-gradient(var(--degs), #ffb9b8, #c9cad6);
+    border: solid 1px transparent;
+    border-radius: var(--border-radius-small);;
+    background-image: linear-gradient(var(--degs), #FFF0EF, var(--background-color-light)),
+      linear-gradient(var(--degs), #ffb9b8, var(--border-color-light));
     background-origin: border-box;
     background-clip: padding-box, border-box;
   }

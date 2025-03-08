@@ -6,9 +6,10 @@
 }
 
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  font-family: var(--open-runde);
+  line-height: 1;
   font-weight: 400;
+  font-size: 62.5%;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
@@ -18,8 +19,16 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
 
+  --border-color-light: #C9CAD6;
+  --background-color-light: #F2F3FB;
+  --black: #2E2F38;
+
+  --border-radius-small: 6px;
+  --border-radius-medium: 8px;
+
+  --open-runde: 'Open Runde', -apple-system, system-ui, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
 
 @font-face {
   font-family: "Open Runde";
@@ -49,7 +58,7 @@ body {
   display: flex;
   place-items: center;
   min-width: 320px;
-  min-height: 100vh;
+  border: 1px solid red;
 }
 
 h1 {

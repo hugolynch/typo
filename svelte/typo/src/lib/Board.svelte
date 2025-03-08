@@ -5,7 +5,7 @@
   let newWord = $state("");
 
   startChain.push("START");
-  endChain.push("ENDING");
+  endChain.push("PANS");
 
   function submit(event: KeyboardEvent) {
     if (event.key === "Enter") {
@@ -84,6 +84,7 @@
   {#each startChain as word, index}
     {#if index === 0}
     <Word letters={word} edit={{ index: null, type: "start"}} />
+    <div class="direction">↓</div>
     {:else}
       <Word letters={word} edit={compareWords(startChain[index - 1], word)} />
     {/if}
@@ -95,6 +96,7 @@
 <div class="chain">
   {#each endChain.toReversed() as word, index}
     {#if index === endChain.length - 1}
+    <div class="direction">↑</div>
     <Word letters={word} edit={{ index: null, type: "start"}} />
     {:else}
       <Word letters={word} edit={compareWords(endChain.toReversed()[index + 1], word)} />
@@ -110,11 +112,32 @@
   }
 
   input {
-    padding: 0;
-    display: block;
-    margin: 12px auto;
+    padding: 0 8px;
+    border: 1px solid var(--border-color-light);
+
+    /* display: block; */
+    /* margin: 12px auto; */
     text-transform: uppercase;
     font-family: monospace;
     text-align: center;
   }
+
+  input {
+    height: 32px;
+    border-radius: var(--border-radius-medium);
+    font-family: monospace;
+    text-transform: uppercase;
+    letter-spacing: 1rem;
+    text-align: center;
+
+    &:focus {
+        border: 1px solid var( --black);
+        outline: none;
+    }
+  }
+
+  .direction {
+      font-weight: bold;
+  }
+
 </style>

@@ -13,35 +13,37 @@
     let seedWords = wordList.filter(word => word.seed)
     startChain.push(seedWords[Math.floor(Math.random() * seedWords.length)].word);
     endChain.push(seedWords[Math.floor(Math.random() * seedWords.length)].word);
+    console.log($state.snapshot(startChain[0]) + " / "  + $state.snapshot(endChain[0]));
+
   });
 
   //FOR DEBUGGING
   // startChain.push("STARE");
   // endChain.push("RUTS");
-  console.log($state.snapshot(startChain[0]) + " / "  + $state.snapshot(endChain[0]));
-  $inspect(gameOver);
 
   function submit(event: KeyboardEvent) {
     if (event.key === "Enter") {
       let currentWord = newWord.toUpperCase().trim();
+      newWord = "";
+
+      if (wordList.every(word => word.word !== currentWord)) {
+        console.log("%cINVALID WORD", 'color: #DC6B6E; background: #FFF0EF');
+        return;
+      }
+
       let startCompare = compareWords(startChain[startChain.length - 1], currentWord)
       let endCompare = compareWords(endChain[endChain.length - 1], currentWord)
+      console.log(startChain.at(-1) + " → " + currentWord + " : " + startCompare.type + '\n' + endChain.at(-1) + " → " + currentWord + " : " + endCompare.type);
 
       if ((startCompare.type === "same" || startCompare.type === "invalid") && (endCompare.type === "same" || endCompare.type === "invalid")) {
-        console.log(`%c${startChain[startChain.length - 1]}` + " → " + currentWord + " : " + startCompare.type, 'color: #DC6B6E; background: #FFF0EF');
-        console.log(`%c${endChain[endChain.length - 1]}` + " → " + currentWord + " : " + endCompare.type, 'color: #DC6B6E; background: #FFF0EF');
       }
       
       if (startCompare.type !== "same" && startCompare.type !== "invalid") {
-        console.log(`%c${startChain[startChain.length - 1]}` + " → " + currentWord + " : " + startCompare.type, 'color: #579E47; background: #EDF5EB')
         startChain.push(currentWord);
-        newWord = "";
       }
       
       if (endCompare.type !== "same" && endCompare.type !== "invalid") {
-        console.log(`%c${endChain[endChain.length - 1]}` + " → " + currentWord + " : " + endCompare.type, 'color: #579E47; background: #EDF5EB')
         endChain.push(currentWord);
-        newWord = "";
       }
     }
   }
@@ -104,10 +106,14 @@
 <div class="chain">
   {#each startChain as word, index}
     {#if index === 0}
-    <Word letters={word} edit={{ index: null, type: "start"}} />
-    <div class="direction">↓</div>
+      <Word letters={word} edit={{ index: null, type: "start"}} />
+      <div class="direction">↓</div>
     {:else}
-      <Word letters={word} edit={compareWords(startChain[index - 1], word)} />
+      <div class="row"><Word letters={word} edit={compareWords(startChain[index - 1], word)} />
+      {#if index === startChain.length - 1 && !gameOver}
+      <button onclick={() => startChain.pop()}>X</button>
+      {/if}
+      </div>
     {/if}
   {/each}
 </div>
@@ -121,10 +127,14 @@
 <div class="chain">
   {#each endChain.toReversed() as word, index}
     {#if index === endChain.length - 1}
-    <div class="direction">↑</div>
-    <Word letters={word} edit={{ index: null, type: "start"}} />
+      <div class="direction">↑</div>
+      <Word letters={word} edit={{ index: null, type: "start"}} />
     {:else if !gameOver || index}
-      <Word letters={word} edit={compareWords(endChain.toReversed()[index + 1], word)} />
+      <div class="row"><Word letters={word} edit={compareWords(endChain.toReversed()[index + 1], word)} />
+      {#if index === 0}
+        <button onclick={() => endChain.pop()}>X</button>
+      {/if}
+      </div>
     {/if}
   {/each}
 </div>
@@ -133,19 +143,15 @@
   .chain {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 4px;
   }
 
   input {
-    padding: 0 8px;
-    border: 1px solid var(--border-color-light);
-    text-transform: uppercase;
-    font-family: monospace;
-    text-align: center;
-  }
-
-  input {
     height: 32px;
+    padding: 0 8px;
+
+    border: 1px solid var(--border-color-light);
     border-radius: var(--border-radius-medium);
     font-family: monospace;
     text-transform: uppercase;
@@ -160,6 +166,34 @@
 
   .direction {
       font-weight: bold;
+  }
+
+  .row {
+    display: flex;
+    align-items: center;
+    position: relative;
+    gap: 4px;
+  }
+
+  button {
+    height: 24px;
+    width: 24px;
+    border-radius: var(--border-radius-small);
+    border: none;
+    background-color: white;
+    color: var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    font-family: var(--open-runde);
+
+    position: absolute;
+    left: calc(100% + 4px);
+
+    &:hover {
+      background-color: var(--background-color-light);
+    }
   }
 
   .line {

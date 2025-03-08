@@ -17,20 +17,15 @@
         newWord = "";
       }
 
-      // let endCompare = compareWords(endChain[endChain.length - 1], newWord)
-      // if (endCompare.type !== "same" && endCompare.type !== "invalid") {
-      //   endChain.push(newWord);
-      //   newWord = "";
-      // }
-
-      console.log(startCompare)
-
+      let endCompare = compareWords(endChain[endChain.length - 1], newWord)
+      if (endCompare.type !== "same" && endCompare.type !== "invalid") {
+        endChain.push(newWord);
+        newWord = "";
+      }
     }
   }
 
   function isInsertion(a: string, b: string): number | null {
-    console.log(a, b)
-
     let i = 0,
       j = 0,
       diff = 0;
@@ -45,7 +40,6 @@
         diff++;
       }
     }
-    console.log(index, diff)
     return diff === 1 ? index : null
   }
 
@@ -76,7 +70,7 @@
       if ((index = isInsertion(a, b)) !== null) {
         return { index, type: "insertion" }
       }
-    } else { // a.length < b.length
+    } else { // a.length > b.length
       if ((index = isInsertion(b, a)) !== null) {
         return { index, type: "deletion" }
       }
@@ -87,16 +81,24 @@
 </script>
 
 <div class="chain">
-  {#each startChain as word}
-    <Word letters={word} />
+  {#each startChain as word, index}
+    {#if index === 0}
+    <Word letters={word} edit={{ index: null, type: "start"}} />
+    {:else}
+      <Word letters={word} edit={compareWords(startChain[index - 1], word)} />
+    {/if}
   {/each}
 </div>
 
 <input bind:value={newWord} onkeydown={submit} />
 
 <div class="chain">
-  {#each endChain.reverse() as word}
-    <Word letters={word} />
+  {#each endChain.toReversed() as word, index}
+    {#if index === endChain.length - 1}
+    <Word letters={word} edit={{ index: null, type: "start"}} />
+    {:else}
+      <Word letters={word} edit={compareWords(endChain.toReversed()[index + 1], word)} />
+    {/if}
   {/each}
 </div>
 
@@ -105,14 +107,14 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
-    border: 1px solid yellow;
   }
 
   input {
-    margin: 0;
     padding: 0;
     display: block;
-    margin: 0 auto;
+    margin: 12px auto;
     text-transform: uppercase;
+    font-family: monospace;
+    text-align: center;
   }
 </style>

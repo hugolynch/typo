@@ -3,7 +3,7 @@
 </script>
 
 <main>
-  <img alt="Typo logo" src="/img/logo-typo.svg">
+  <img id="logo" alt="Typo logo" src="/img/logo-typo.svg">
   <div class="board">
     <Board />
   </div>
@@ -20,5 +20,10 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
+  }
+
+  #logo {
+    max-width: 2r00px;
+    margin: 0 auto;
   }
 </style>

@@ -1,16 +1,26 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import Word from "./Word.svelte";
+
+  let wordList: { word: string, seed: boolean }[] = [];
   let startChain: string[] = $state([]);
   let endChain: string[] = $state([]);
   let newWord = $state("");
   let gameOver = $derived(startChain.at(-1) === endChain.at(-1));
 
-  startChain.push("STARE");
-  endChain.push("RUTS");
+  onMount(async () => {
+    wordList = await fetch('public/words.json').then(x => x.json());
+    let seedWords = wordList.filter(word => word.seed)
+    startChain.push(seedWords[Math.floor(Math.random() * seedWords.length)].word);
+    endChain.push(seedWords[Math.floor(Math.random() * seedWords.length)].word);
+  });
 
+  //FOR DEBUGGING
+  // startChain.push("STARE");
+  // endChain.push("RUTS");
+  console.log($state.snapshot(startChain[0]) + " / "  + $state.snapshot(endChain[0]));
   $inspect(gameOver);
 
-  console.log($state.snapshot(startChain[0]) + " / "  + $state.snapshot(endChain[0]));
   function submit(event: KeyboardEvent) {
     if (event.key === "Enter") {
       let currentWord = newWord.toUpperCase().trim();
@@ -105,7 +115,7 @@
 {#if gameOver}
   <hr class="line"/>
 {:else}
-  <input bind:value={newWord} onkeydown={submit} />
+  <input bind:value={newWord} onkeydown={submit} disabled={!(startChain.length && endChain.length)} />
 {/if}
 
 <div class="chain">
@@ -129,9 +139,6 @@
   input {
     padding: 0 8px;
     border: 1px solid var(--border-color-light);
-
-    /* display: block; */
-    /* margin: 12px auto; */
     text-transform: uppercase;
     font-family: monospace;
     text-align: center;

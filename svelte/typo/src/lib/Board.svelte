@@ -3,34 +3,34 @@
   let startChain: string[] = $state([]);
   let endChain: string[] = $state([]);
   let newWord = $state("");
+  let gameOver = $derived(startChain.at(-1) === endChain.at(-1));
 
   startChain.push("STARE");
   endChain.push("RUTS");
 
-  console.log($state.snapshot(startChain[0]) + " / "  + $state.snapshot(endChain[0]));
+  $inspect(gameOver);
 
+  console.log($state.snapshot(startChain[0]) + " / "  + $state.snapshot(endChain[0]));
   function submit(event: KeyboardEvent) {
     if (event.key === "Enter") {
-      newWord = newWord.toUpperCase().trim();
-      let startCompare = compareWords(startChain[startChain.length - 1], newWord)
-      let endCompare = compareWords(endChain[endChain.length - 1], newWord)
+      let currentWord = newWord.toUpperCase().trim();
+      let startCompare = compareWords(startChain[startChain.length - 1], currentWord)
+      let endCompare = compareWords(endChain[endChain.length - 1], currentWord)
 
       if ((startCompare.type === "same" || startCompare.type === "invalid") && (endCompare.type === "same" || endCompare.type === "invalid")) {
-        console.log(`%c${startChain[startChain.length - 1]}` + " → " + newWord + " : " + startCompare.type, 'color: #DC6B6E; background: #FFF0EF');
-        console.log(`%c${endChain[endChain.length - 1]}` + " → " + newWord + " : " + endCompare.type, 'color: #DC6B6E; background: #FFF0EF');
+        console.log(`%c${startChain[startChain.length - 1]}` + " → " + currentWord + " : " + startCompare.type, 'color: #DC6B6E; background: #FFF0EF');
+        console.log(`%c${endChain[endChain.length - 1]}` + " → " + currentWord + " : " + endCompare.type, 'color: #DC6B6E; background: #FFF0EF');
       }
-
-      if (startCompare.type !== "same" && startCompare.type !== "invalid" && endCompare.type !== "same" && endCompare.type !== "invalid") {
-        console.log(`%c${startChain[startChain.length - 1]}` + " → " + newWord + " ← " + startChain[startChain.length - 1], 'color: #579E47; background: #EDF5EB')
-      } else if (startCompare.type !== "same" && startCompare.type !== "invalid") {
-        console.log(`%c${startChain[startChain.length - 1]}` + " → " + newWord + " : " + startCompare.type, 'color: #579E47; background: #EDF5EB')
-        console.log(`%c${endChain[endChain.length - 1]}` + " → " + newWord + " : " + endCompare.type, 'color: #DC6B6E; background: #FFF0EF')
-        startChain.push(newWord);
+      
+      if (startCompare.type !== "same" && startCompare.type !== "invalid") {
+        console.log(`%c${startChain[startChain.length - 1]}` + " → " + currentWord + " : " + startCompare.type, 'color: #579E47; background: #EDF5EB')
+        startChain.push(currentWord);
         newWord = "";
-      } else if (endCompare.type !== "same" && endCompare.type !== "invalid") {
-        console.log(`%c${startChain[startChain.length - 1]}` + " → " + newWord + " : " + startCompare.type, 'color: #DC6B6E; background: #FFF0EF')
-        console.log(`%c${endChain[endChain.length - 1]}` + " → " + newWord + " : " + endCompare.type, 'color: #579E47; background: #EDF5EB')
-        endChain.push(newWord);
+      }
+      
+      if (endCompare.type !== "same" && endCompare.type !== "invalid") {
+        console.log(`%c${endChain[endChain.length - 1]}` + " → " + currentWord + " : " + endCompare.type, 'color: #579E47; background: #EDF5EB')
+        endChain.push(currentWord);
         newWord = "";
       }
     }
@@ -102,14 +102,18 @@
   {/each}
 </div>
 
-<input bind:value={newWord} onkeydown={submit} />
+{#if gameOver}
+  <hr class="line"/>
+{:else}
+  <input bind:value={newWord} onkeydown={submit} />
+{/if}
 
 <div class="chain">
   {#each endChain.toReversed() as word, index}
     {#if index === endChain.length - 1}
     <div class="direction">↑</div>
     <Word letters={word} edit={{ index: null, type: "start"}} />
-    {:else}
+    {:else if !gameOver || index}
       <Word letters={word} edit={compareWords(endChain.toReversed()[index + 1], word)} />
     {/if}
   {/each}
@@ -150,4 +154,13 @@
   .direction {
       font-weight: bold;
   }
+
+  .line {
+    width: 400px;
+    height: 1px;
+    background: linear-gradient(90deg, white 10%, var(--border-color-light), white 90%);
+    border: none;
+    margin: 1px 0;
+}
+
 </style>

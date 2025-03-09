@@ -1,28 +1,26 @@
 <script lang="ts">
+  import { slide } from 'svelte/transition'
   import { gameState } from '../state.svelte'
 
   let defPromise = $derived(async function(word: string | null) {
-    let defs = await fetch(`https://en.wiktionary.org/api/rest_v1/page/definition/${word?.toLowerCase()}`)
+    let defs = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
       .then(response => response.json())
-    let def = defs.en[0].definitions[0].definition
-    let doc = new DOMParser().parseFromString(def, 'text/html')
-    return [defs.en[0].partOfSpeech, doc.body.textContent]
+    return [defs[0].phonetic, defs[0].meanings[0].partOfSpeech, defs[0].meanings[0].definitions[0].definition]
   }(gameState.defWord))
 </script>
 
 {#if gameState.defWord}
-  <footer>
-    <div>
-      {#await defPromise}
-        Fetching definition...
-      {:then def}
-        <span class="word">{ gameState.defWord } /</span>
-        <span class="speech">{ def[0] }</span>
-        <span class="def">{ def[1] }</span>
-      {/await}
-    </div>
+  {#await defPromise then def}
+    <footer transition:slide|global>
+      <div>
+        <span class="word">{ gameState.defWord }</span>
+        <span class="phonetic">{ def[0] }</span>
+        <span class="speech">{def[1]}</span>
+        <span class="def">{ def[2] }</span>
+      </div>
     <button class="close" onclick={() => gameState.defWord = null}>X</button>
   </footer>
+  {/await}
 {/if}
 
 <style>
@@ -37,19 +35,23 @@
     display: flex;
     /* align-items: center; */
     justify-content: space-between;
-    gap: 4px;
+    gap: 8px;
+    border-top: 1px solid black;
 
   }
 
   .word {
-    /* display: block; */
     font-weight: bold;
+  }
+
+  .speech {
+    font-style: italic;
   }
 
   .def {
     display: block;
     flex-grow: 1;
-
+    margin-top: 1rem;
   }
 
   .close {

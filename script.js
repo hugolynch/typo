@@ -362,12 +362,12 @@ function getDefinitionStart(gameState) {
 
   let word = '';
   for (let i = 0; i < gameState.startWord.length; i++) {
-    word += gameState.startWord[i].toLowerCase();
+    word += gameState.startWord[i];
   }
   
-  fetch(`https://en.wiktionary.org/api/rest_v1/page/definition/${word}`)
+  fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
   .then(response => response.json())
-  .then(data => console.log(data))
+  .then(data => console.log(word + ":", data[0].meanings[0].definitions[0].definition))
 }
 
 function getDefinitionEnd(gameState) {
@@ -377,9 +377,9 @@ function getDefinitionEnd(gameState) {
     word += gameState.endWord[i];
   }
   
-  fetch(`https://en.wiktionary.org/api/rest_v1/page/definition/${word}`)
+  fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
   .then(response => response.json())
-  .then(data => console.log(data))
+  .then(data => console.log(word + ":", data[0].meanings[0].definitions[0].definition))
 }
 
 function findCountsStart(gameState) {
@@ -471,5 +471,6 @@ function findCountsEnd(gameState) {
   console.log("END Additions:", addCount, adds);
   console.log("END Substractions:", subCount, subs);
 }
+
 
 init();

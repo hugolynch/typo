@@ -1,8 +1,10 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import { solve } from '../solver'
   import Word from "./Word.svelte";
 
   let wordList: { word: string, seed: boolean }[] = [];
+  let solution: string[]|null = $state(null);
   let startChain: string[] = $state([]);
   let endChain: string[] = $state([]);
   let newWord = $state("");
@@ -10,17 +12,30 @@
 
   onMount(async () => {
     wordList = await fetch('/words.json').then(x => x.json());
+    const neighbours = await fetch('./computed.txt')
+      .then(r => r.text())
+      .then(text => {
+        const lines = text.split(/\r?\n/);
+        const moves = new Map<string, string[]>();
+        for (const line of lines) {
+          const [word, ...valid] = line.split(/[:,]/);
+          moves.set(word, valid); // each move costs one for now
+        }
+        return moves;
+      })
+
     let seedWords = wordList.filter(word => word.seed)
-
-
     startChain.push(seedWords[Math.floor(Math.random() * seedWords.length)].word);
     endChain.push(seedWords[Math.floor(Math.random() * seedWords.length)].word);
+    solution = solve(startChain[0], endChain[0], neighbours)
     console.log($state.snapshot(startChain[0]) + " / "  + $state.snapshot(endChain[0]));
-
+    if (! solution) {
+      console.log('%cNO SOLUTION', 'color: #DC6B6E; background: #FFF0EF');
+    }
   });
 
   //FOR DEBUGGING
-  // startChain.push("STARE");
+  // startChain.push("MANATEE");
   // endChain.push("RUTS");
 
   function submit(event: KeyboardEvent) {
@@ -111,10 +126,11 @@
       <Word letters={word} edit={{ index: null, type: "start" }} />
       <div class="direction">↓</div>
     {:else}
-      <div class="row"><Word letters={word} edit={compareWords(startChain[index - 1], word)} />
-      {#if index === startChain.length - 1 && !gameOver}
-      <button onclick={() => startChain.pop()}>X</button>
-      {/if}
+      <div class="row">
+        <Word letters={word} edit={compareWords(startChain[index - 1], word)} />
+        {#if index === startChain.length - 1 && !gameOver}
+          <button onclick={() => startChain.pop()}>X</button>
+        {/if}
       </div>
     {/if}
   {/each}
@@ -122,6 +138,7 @@
 
 {#if gameOver}
   <hr class="line"/>
+  {console.log($state.snapshot(solution))}
 {:else}
   <input bind:value={newWord} onkeydown={submit} disabled={!(startChain.length && endChain.length)} />
 {/if}
@@ -132,10 +149,11 @@
       <div class="direction">↑</div>
       <Word letters={word} edit={{ index: null, type: "start"}} />
     {:else if !gameOver || index}
-      <div class="row"><Word letters={word} edit={compareWords(endChain.toReversed()[index + 1], word)} />
-      {#if index === 0}
-        <button onclick={() => endChain.pop()}>X</button>
-      {/if}
+      <div class="row">
+        <Word letters={word} edit={compareWords(endChain.toReversed()[index + 1], word)} />
+        {#if index === 0}
+          <button onclick={() => endChain.pop()}>X</button>
+        {/if}
       </div>
     {/if}
   {/each}
@@ -205,5 +223,4 @@
     border: none;
     margin: 1px 0;
 }
-
 </style>

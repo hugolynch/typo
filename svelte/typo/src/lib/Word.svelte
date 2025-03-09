@@ -1,8 +1,9 @@
 <script lang="ts">
+  import { gameState } from '../state.svelte'
   let { letters, edit } = $props();
 </script>
 
-<div class="word">
+<button class="word" onclick="{() => gameState.defWord = letters}">
   {#each [...letters] as letter, index}
     {#if edit.type === "shuffle"}
       <span class="{edit.type} letter">{letter}</span>
@@ -20,7 +21,7 @@
       <span class="letter">{letter}</span>
     {/if}
   {/each}
-</div>
+</button>
 
 <style>
   .word {

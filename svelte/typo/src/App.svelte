@@ -1,6 +1,7 @@
 <script lang="ts">
-  import Board from './lib/Board.svelte'
   import Nav from './lib/Nav.svelte'
+  import Board from './lib/Board.svelte'
+  import Definition from './lib/Definition.svelte'
 </script>
 
 <Nav />
@@ -8,7 +9,7 @@
 <div class="board">
   <Board />
 </div>
-<div id="def">lakdmla</div>
+<Definition />
 
 <style>
   .board {
@@ -22,14 +23,4 @@
     max-width: 200px;
     margin: 0 auto;
   }
-
-  #def {
-  border: 1px solid red;
-  background-color: var(--black);
-  color: white;
-  padding: 32px;
-  width: 100%;
-  font-family: monospace;
-  font-size: 1.2rem;
-}
 </style>

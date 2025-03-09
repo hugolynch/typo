@@ -103,16 +103,12 @@
 
     return { index: null, type: "invalid" }
   }
-
-  function showDef(word: string) {
-
-  }
 </script>
 
 <div class="chain">
   {#each startChain as word, index}
     {#if index === 0}
-      <Word letters={word} edit={{ index: null, type: "start"}} onclick="{showDef(word)}"/>
+      <Word letters={word} edit={{ index: null, type: "start" }} />
       <div class="direction">↓</div>
     {:else}
       <div class="row"><Word letters={word} edit={compareWords(startChain[index - 1], word)} />

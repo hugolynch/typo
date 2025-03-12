@@ -1,11 +1,12 @@
 <script lang="ts">
+  import logo from './img/logo-typo.svg'
   import Nav from './lib/Nav.svelte'
   import Board from './lib/Board.svelte'
   import Definition from './lib/Definition.svelte'
 </script>
 
 <Nav />
-<img id="logo" alt="Typo logo" src="/img/logo-typo.svg">
+<img id="logo" alt="Typo logo" src="{logo}">
 <div class="board">
   <Board />
 </div>

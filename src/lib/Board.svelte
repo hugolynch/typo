@@ -139,6 +139,7 @@
 {#if gameOver}
   <hr class="line"/>
   {console.log($state.snapshot(solution))}
+  {console.log('SCORE:', Math.round(solution?.length as number / (endChain.length + startChain.length - 1) * 100) )}
 {:else}
   <input bind:value={newWord} onkeydown={submit} disabled={!(startChain.length && endChain.length)} />
 {/if}

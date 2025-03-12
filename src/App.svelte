@@ -1,5 +1,5 @@
 <script lang="ts">
-  import logo from './img/logo-typo.svg'
+  import logo from '../public/img/logo-typo.svg'
   import Nav from './lib/Nav.svelte'
   import Board from './lib/Board.svelte'
   import Definition from './lib/Definition.svelte'

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import wordsUrl from '../../public/words.json'
   import { onMount } from "svelte";
   import { solve } from '../solver'
   import Word from "./Word.svelte";
@@ -11,7 +12,7 @@
   let gameOver = $derived(startChain.at(-1) === endChain.at(-1));
 
   onMount(async () => {
-    wordList = await fetch('/words.json').then(x => x.json());
+    wordList = await fetch(wordsUrl).then(x => x.json());
     const neighbours = await fetch('./computed.txt')
       .then(r => r.text())
       .then(text => {

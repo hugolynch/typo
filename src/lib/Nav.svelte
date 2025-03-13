@@ -1,24 +1,27 @@
 <script lang="ts">
-
+  import logo from '../assets/img/logo-hop.svg'
+  import user from '../assets/img/user.svg'
+  import dropdown from '../assets/img/icons/dropdown.svg'
+  import date from '../assets/img/icons/date.svg'
 </script>
 
 <nav>
   <div class="row top">
-    <img id="logo" alt="Hopscotch logo" src="/img/logo-hop.svg">
+    <img id="logo" alt="Hopscotch logo" src="{logo}">
     <span id="hop">Hopscotch Games</span>
     <div class="spacer"></div>
     <div>
-      <span id="user"><img alt="user icon" src="/img/user.svg"></span>
+      <span id="user"><img alt="user icon" src="{user}"></span>
       <div>User</div>
-      <img alt="dropdown icon" src="/img/icons/dropdown.svg">
+      <img alt="dropdown icon" src="{dropdown}">
     </div>
   </div>
   <div class="row middle">
     <div class="item">←</div>
     <div class="item">
-      <img alt="date icon" src="/img/icons/date.svg">
+      <img alt="date icon" src="{date}">
       <span>Date</span>
-      <img alt="dropdown icon" src="/img/icons/dropdown.svg">
+      <img alt="dropdown icon" src="{dropdown}">
     </div>
     <div class="item">Game</div>
     <div class="item">Mode</div>

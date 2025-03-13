@@ -3,23 +3,27 @@
 </script>
 
 <nav>
-  <div class="row">
-    <a>LOGO</a>
-    <a>Trèfle</a>
+  <div class="row top">
+    <img id="logo" alt="Hopscotch logo" src="/img/logo-hop.svg">
+    <span id="hop">Hopscotch Games</span>
     <div class="spacer"></div>
-    <ul>User ⏷</ul>
+    <div>
+      <span id="user"><img alt="user icon" src="/img/user.svg"></span>
+      <div>User</div>
+      <img alt="dropdown icon" src="/img/icons/dropdown.svg">
+    </div>
   </div>
-  <div class="row">
-    <a>←</a>
-    <div>Typo</div>
-    <ul>Game Mode ⏷</ul>
-  </div>
-  <div class="row">
-    <ul>Options ⏷</ul>
+  <div class="row middle">
+    <div class="item">←</div>
+    <div class="item">
+      <img alt="date icon" src="/img/icons/date.svg">
+      <span>Date</span>
+      <img alt="dropdown icon" src="/img/icons/dropdown.svg">
+    </div>
+    <div class="item">Game</div>
+    <div class="item">Mode</div>
     <div class="spacer"></div>
-    <button>?</button>
-    <button>Share</button>
-    <a>Leaderboards</a>
+    <div class="item">Score</div>
   </div>
 </nav>
 
@@ -27,26 +31,19 @@
   nav {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    padding: 16px;
-    border-bottom: 1px solid var(--border-color-light);
-    background-color: var(--background-color-light);
     width: 100%;
   }
 
  .row {
   display: flex;
+  padding: 16px 32px;
   gap: 8px;
 
   &>* {
     display: flex;
     height: 32px;
-    border: 1px solid var(--border-color-light);
-    border-radius: var(--border-radius-small);
     font-size: 1.6rem;
     align-items: center;
-    padding: 0 8px;
-    background-color: white;
   }
 
   &>.spacer {
@@ -55,4 +52,46 @@
     background-color: transparent;
   }
  }
+
+ #user {
+  
+  height: 28px;
+  width: 28px;
+  border: 1px solid #8C8E98;
+  margin-right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  aspect-ratio: 1 / 1;
+
+
+  &>img {
+      border-radius: 100%;
+      height: 24px;
+    }
+  }
+
+ .top {
+    background-color: white;
+  }
+
+  #hop {
+    font-weight: bold;
+  }
+
+  .middle {
+    background-color: var(--background-color-light);
+
+    &>.item {
+      background-color: #E3E5EF;
+      padding: 8px;
+      border-radius: var(--border-radius-small);
+
+      &>span {
+        padding-left: 8px;
+      }
+    }
+  }
+
 </style>

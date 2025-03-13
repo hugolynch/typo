@@ -1,0 +1,35 @@
+<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_2484_35103)">
+<rect width="30" height="30" fill="white" style="fill:white;fill-opacity:1;"/>
+<rect width="6" height="6" fill="#00F8FD" style="fill:#00F8FD;fill:color(display-p3 0.0000 0.9744 0.9909);fill-opacity:1;"/>
+<rect x="6" width="6" height="6" fill="#FF8978" style="fill:#FF8978;fill:color(display-p3 1.0000 0.5373 0.4717);fill-opacity:1;"/>
+<rect x="12" width="6" height="6" fill="#09F1CF" style="fill:#09F1CF;fill:color(display-p3 0.0363 0.9438 0.8110);fill-opacity:1;"/>
+<rect x="18" width="6" height="6" fill="#04C8D0" style="fill:#04C8D0;fill:color(display-p3 0.0157 0.7848 0.8163);fill-opacity:1;"/>
+<rect x="24" width="6" height="6" fill="#FF6B34" style="fill:#FF6B34;fill:color(display-p3 1.0000 0.4182 0.2047);fill-opacity:1;"/>
+<rect y="6" width="6" height="6" fill="#FF4922" style="fill:#FF4922;fill:color(display-p3 1.0000 0.2863 0.1333);fill-opacity:1;"/>
+<path d="M6 6H12V12H6V6Z" fill="#FF6B34" style="fill:#FF6B34;fill:color(display-p3 1.0000 0.4182 0.2047);fill-opacity:1;"/>
+<rect x="12" y="6" width="6" height="6" fill="#00F8FD" style="fill:#00F8FD;fill:color(display-p3 0.0000 0.9744 0.9909);fill-opacity:1;"/>
+<rect x="18" y="6" width="6" height="6" fill="#FF6B34" style="fill:#FF6B34;fill:color(display-p3 1.0000 0.4182 0.2047);fill-opacity:1;"/>
+<rect x="24" y="6" width="6" height="6" fill="#00F8FD" style="fill:#00F8FD;fill:color(display-p3 0.0000 0.9744 0.9909);fill-opacity:1;"/>
+<rect y="12" width="6" height="6" fill="#FF6B34" style="fill:#FF6B34;fill:color(display-p3 1.0000 0.4182 0.2047);fill-opacity:1;"/>
+<rect x="6" y="12" width="6" height="6" fill="#04C8D0" style="fill:#04C8D0;fill:color(display-p3 0.0157 0.7848 0.8163);fill-opacity:1;"/>
+<rect x="12" y="12" width="6" height="6" fill="#FF6B34" style="fill:#FF6B34;fill:color(display-p3 1.0000 0.4182 0.2047);fill-opacity:1;"/>
+<rect x="18" y="12" width="6" height="6" fill="#00F8FD" style="fill:#00F8FD;fill:color(display-p3 0.0000 0.9744 0.9909);fill-opacity:1;"/>
+<rect x="24" y="12" width="6" height="6" fill="#FF6B34" style="fill:#FF6B34;fill:color(display-p3 1.0000 0.4182 0.2047);fill-opacity:1;"/>
+<rect y="18" width="6" height="6" fill="#04C8D0" style="fill:#04C8D0;fill:color(display-p3 0.0157 0.7848 0.8163);fill-opacity:1;"/>
+<rect x="6" y="18" width="6" height="6" fill="#FF4922" style="fill:#FF4922;fill:color(display-p3 1.0000 0.2863 0.1333);fill-opacity:1;"/>
+<rect x="12" y="18" width="6" height="6" fill="#09F1CF" style="fill:#09F1CF;fill:color(display-p3 0.0363 0.9438 0.8110);fill-opacity:1;"/>
+<rect x="18" y="18" width="6" height="6" fill="#FF6B34" style="fill:#FF6B34;fill:color(display-p3 1.0000 0.4182 0.2047);fill-opacity:1;"/>
+<rect x="24" y="18" width="6" height="6" fill="#FF8978" style="fill:#FF8978;fill:color(display-p3 1.0000 0.5373 0.4717);fill-opacity:1;"/>
+<rect y="24" width="6" height="6" fill="#00F8FD" style="fill:#00F8FD;fill:color(display-p3 0.0000 0.9744 0.9909);fill-opacity:1;"/>
+<path d="M6 24H12V30H6V24Z" fill="#FF6B34" style="fill:#FF6B34;fill:color(display-p3 1.0000 0.4182 0.2047);fill-opacity:1;"/>
+<rect x="12" y="24" width="6" height="6" fill="#FF8978" style="fill:#FF8978;fill:color(display-p3 1.0000 0.5373 0.4717);fill-opacity:1;"/>
+<rect x="18" y="24" width="6" height="6" fill="#00F8FD" style="fill:#00F8FD;fill:color(display-p3 0.0000 0.9744 0.9909);fill-opacity:1;"/>
+<rect x="24" y="24" width="6" height="6" fill="#FF4922" style="fill:#FF4922;fill:color(display-p3 1.0000 0.2863 0.1333);fill-opacity:1;"/>
+</g>
+<defs>
+<clipPath id="clip0_2484_35103">
+<rect width="30" height="30" fill="white" style="fill:white;fill-opacity:1;"/>
+</clipPath>
+</defs>
+</svg>

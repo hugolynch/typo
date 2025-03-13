@@ -1,5 +1,5 @@
 <script lang="ts">
-  import wordsUrl from '../../public/words.json'
+  import wordsUrl from '../../public/words.json?url'
   import { onMount } from "svelte";
   import { solve } from '../solver'
   import Word from "./Word.svelte";

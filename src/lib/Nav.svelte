@@ -1,8 +1,8 @@
 <script lang="ts">
-  import logo from '../assets/img/logo-hop.svg'
-  import user from '../assets/img/user.svg'
-  import dropdown from '../assets/img/icons/dropdown.svg'
-  import date from '../assets/img/icons/date.svg'
+  import logo from '/img/logo-hop.svg'
+  import user from '/img/user.svg'
+  import dropdown from '/img/icons/dropdown.svg'
+  import date from '/img/icons/date.svg'
 </script>
 
 <nav>

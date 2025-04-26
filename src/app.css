@@ -43,13 +43,19 @@
 body {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 32px;
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* gap: 32px; */
   width: 100%;
   min-height: 100vh;
 }
 
 button {
   background-color: #f9f9f9;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }

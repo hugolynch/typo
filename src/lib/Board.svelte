@@ -36,7 +36,7 @@
   });
 
   //FOR DEBUGGING
-  // startChain.push("MANATEE");
+  // startChain.push("AILS");
   // endChain.push("RUTS");
 
   function submit(event: KeyboardEvent) {
@@ -172,6 +172,7 @@
   input {
     height: 32px;
     padding: 0 8px;
+    margin: 0 auto;
 
     border: 1px solid var(--border-color-light);
     border-radius: var(--border-radius-medium);

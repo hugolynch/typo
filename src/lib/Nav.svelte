@@ -26,7 +26,7 @@
     <div class="item">Game</div>
     <div class="item">Mode</div>
     <div class="spacer"></div>
-    <div class="item">Score</div>
+    <div class="item">Daily Score</div>
   </div>
 </nav>
 

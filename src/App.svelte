@@ -32,6 +32,7 @@
   .board {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 4px;
     padding: 32px;
     flex-grow: 1;

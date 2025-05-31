@@ -162,6 +162,41 @@
 </div>
 
 <style>
+  :root {
+    font-family: var(--open-runde);
+    line-height: 1;
+    font-weight: 400;
+    font-size: 62.5%;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    --border-color-light: #C9CAD6;
+    --background-color-light: #F2F3FB;
+    --black: #2E2F38;
+
+    --border-radius-small: 6px;
+    --border-radius-medium: 8px;
+
+    --open-runde: 'Open Runde', -apple-system, system-ui, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  }
+
+  @font-face {
+    font-family: "Open Runde";
+    src: url('/fonts/OpenRunde-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: "Open Runde";
+    src: url('/fonts/OpenRunde-Bold.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+  }
+
   .chain {
     display: flex;
     flex-direction: column;

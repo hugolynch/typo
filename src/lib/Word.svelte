@@ -24,6 +24,9 @@
 </button>
 
 <style>
+  button {
+    background-color: #f9f9f9;
+  }
   .word {
     display: flex;
     margin: 0 auto;

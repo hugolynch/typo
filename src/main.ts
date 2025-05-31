@@ -7,3 +7,6 @@ const app = mount(App, {
 })
 
 export default app
+
+export { default as Board } from './lib/Board.svelte';
+export { default as Word } from './lib/Word.svelte';

@@ -11,8 +11,10 @@
   let gameOver = $derived(startChain.at(-1) === endChain.at(-1));
 
   onMount(async () => {
-    wordList = await fetch(wordsUrl).then(x => x.json());
-    const neighbours = await fetch('./computed.txt')
+    wordList = await fetch('/typo/words.json').then(x => x.json());
+
+
+    const neighbours = await fetch('/typo/computed.txt')
       .then(r => r.text())
       .then(text => {
         const lines = text.split(/\r?\n/);
